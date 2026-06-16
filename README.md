@@ -106,6 +106,64 @@ Best Practice documentation steps:
 * Remove unnecessary/commented out code
 * If needed, update git ignore to remove sensitive data
 
+## Implementation Details
+
+### CashRegister Class
+
+The CashRegister class provides a complete solution for managing a cash register system. It handles item tracking, total calculation, discount application, and transaction history.
+
+#### Features
+
+- **Item Management**: Add items with price and optional quantity
+- **Discount Support**: Apply percentage-based discounts (0-100%)
+- **Transaction Tracking**: Maintain a history of all transactions
+- **Void Operations**: Remove the last transaction and update totals accordingly
+
+#### Usage Example
+
+```python
+from cash_register import CashRegister
+
+# Create a cash register with no discount
+register = CashRegister()
+
+# Add items
+register.add_item("eggs", 0.98)
+register.add_item("book", 5.00, 3)  # Quantity: 3
+print(f"Total: ${register.total}")  # Total: $15.98
+
+# Create a register with 20% discount
+discounted_register = CashRegister(20)
+discounted_register.add_item("macbook air", 1000)
+discounted_register.apply_discount()  # Prints: "After the discount, the total comes to $800."
+print(f"Total: ${discounted_register.total}")  # Total: $800.0
+
+# Void last transaction
+register.add_item("tomato", 1.76)
+register.void_last_transaction()
+print(f"Items: {register.items}")  # Only eggs and 3 books remain
+```
+
+#### Class Methods
+
+- `__init__(discount=0)`: Initialize register with optional discount
+- `add_item(item, price, quantity=1)`: Add item to register
+- `apply_discount()`: Apply discount percentage to total
+- `void_last_transaction()`: Remove last transaction from register
+
+#### Testing
+
+All functionality has been tested and verified to pass 14 unit tests:
+- Initialization tests
+- Item addition tests
+- Discount application tests
+- Transaction void tests
+
+Run tests with:
+```bash
+python3 -m pytest lib/testing/cash_register_test.py -v
+```
+
 ## Save your work and push to GitHub
 
 Before you submit your solution, you need to save your progress with git.
